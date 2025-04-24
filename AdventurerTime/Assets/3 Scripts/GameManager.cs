@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         bossUI.SetActive(false);
     }
-    
+
     void Update()
     {
         SetPlayerHP();
@@ -48,7 +46,7 @@ public class GameManager : MonoBehaviour
             player.playerBossStart = true;
             bow.bowBossStart = true;
             mainCamera.StartCoroutine("BossCameraStart");
-            
+
             once = false;
         }
     }
@@ -63,7 +61,6 @@ public class GameManager : MonoBehaviour
             currentPlayerHP = 0;
 
             PlayerOnButtonClick();
-            //죽었을 때
         }
     }
 
@@ -76,7 +73,6 @@ public class GameManager : MonoBehaviour
         {
             currentPlayerHP = 0;
             BossOnButtonClick();
-            //죽었을 때
         }
 
     }
@@ -93,11 +89,11 @@ public class GameManager : MonoBehaviour
 
     public void PlayerOnButtonClick()
     {
-        SceneManager.LoadScene("GameOverScene"); // 대상 씬으로 이동
+        SceneManager.LoadScene("GameOverScene"); 
     }
 
     public void BossOnButtonClick()
     {
-        SceneManager.LoadScene("GameEndScene"); // 대상 씬으로 이동
+        SceneManager.LoadScene("GameEndScene"); 
     }
 }

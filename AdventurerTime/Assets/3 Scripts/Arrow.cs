@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -19,7 +17,7 @@ public class Arrow : MonoBehaviour
     {
         Destroy(gameObject, 30f);
         PlayerPoint();
-       
+
     }
 
     void Update()

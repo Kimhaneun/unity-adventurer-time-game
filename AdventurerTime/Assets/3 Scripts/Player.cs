@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     float speed = 10f;
-    
+
 
     public bool playerBossStart = false;
 
@@ -13,16 +11,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameManager gameManager;
     [SerializeField] MainCamera mainCamera;
-    
+
 
     private void Awake()
     {
         transform.position = new Vector3(0, -9f, 0);
         playerHP = gameManager.maxPlayerHP;
-
-        //Vector3 movementLimit = new Vector3(11.5f, 11.5f, 0);       // 이동 제한
     }
-   
+
     void Update()
     {
         PlayerMove();

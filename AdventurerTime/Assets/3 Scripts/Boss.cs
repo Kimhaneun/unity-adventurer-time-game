@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -14,15 +12,15 @@ public class Boss : MonoBehaviour
     private float timer;
     private float interval = 1.5f;
 
-    public GameObject fireGreenPrefab; 
-    int numFireGreen = 12; // �߻��� fireGreen�� ��
-    float fireGreenSpeed = 8f; // fireGreen�� �ӵ�
-    float fireGreenSpreadAngle = 360f; // fireGreen�� ���� ���� ���� (�� ���)
+    public GameObject fireGreenPrefab;
+    int numFireGreen = 12;
+    float fireGreenSpeed = 8f;
+    float fireGreenSpreadAngle = 360f;
 
-    public GameObject firePurplePrefab; // firePurple ������
-    int numFirePurple = 6; // �߻��� firePurple�� ��
-    float firePurpleSpeed = 8f; // firePurple�� �ӵ�
-    public float firePurpleSpreadRadius = 0.05f; // �Ѿ��� ���� ���� ������
+    public GameObject firePurplePrefab;
+    int numFirePurple = 6;
+    float firePurpleSpeed = 8f;
+    public float firePurpleSpreadRadius = 0.05f;
 
     public int bossHP;
 
@@ -33,7 +31,7 @@ public class Boss : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        bossHP = gameManager.maxBossHP;//
+        bossHP = gameManager.maxBossHP;
     }
 
     void Start()
@@ -51,12 +49,12 @@ public class Boss : MonoBehaviour
 
     void BossFlipX()
     {
-        if (player.transform.position.x > 0)        // player�� �����ʿ� ��ġ�Ͽ��� ��
+        if (player.transform.position.x > 0)
         {
             spriteRenderer.flipX = false;
         }
 
-        else if (player.transform.position.x < 0)       // player�� ���ʿ� ��ġ�Ͽ��� ��
+        else if (player.transform.position.x < 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -90,7 +88,7 @@ public class Boss : MonoBehaviour
             case 1:
                 Attack2();
                 break;
-            
+
             default:
                 Debug.LogError("Invalid random index!");
                 break;
@@ -101,23 +99,18 @@ public class Boss : MonoBehaviour
     {
         animator.SetTrigger("onAttack1");
 
-        // �Ѿ��� �÷��̾ �߰��ϸ� ���ﰢ�� ������� �߻�
         float angleStep = 360f / numFirePurple;
         float currentAngle = 0f;
 
         for (int i = 0; i < numFirePurple; i++)
         {
-            // �Ѿ� ����
             GameObject bullet = Instantiate(firePurplePrefab, transform.position, Quaternion.identity);
 
-            // �÷��̾ ���ϴ� ���� ���� ���
             Vector2 direction = (player.transform.position - transform.position).normalized;
 
-            // �Ѿ˿� �ӵ��� ����
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             bulletRb.linearVelocity = direction * firePurpleSpeed;
 
-            // ���ﰢ�� ������� �Ѿ� ��ġ ����
             float xOffset = Mathf.Cos(Mathf.Deg2Rad * currentAngle) * firePurpleSpreadRadius;
             float yOffset = Mathf.Sin(Mathf.Deg2Rad * currentAngle) * firePurpleSpreadRadius;
             bullet.transform.position += new Vector3(xOffset, yOffset, 0f);
@@ -125,27 +118,23 @@ public class Boss : MonoBehaviour
             currentAngle += angleStep;
         }
 
-        animator.SetTrigger("onIdle"); 
+        animator.SetTrigger("onIdle");
     }
 
     void Attack2()
     {
         animator.SetTrigger("onAttack2");
 
-        // �� ������� �Ѿ��� �߻�
         float angleStep = fireGreenSpreadAngle / numFireGreen;
         float currentAngle = 0f;
 
         for (int i = 0; i < numFireGreen; i++)
         {
 
-            // �Ѿ� ����
             GameObject bullet = Instantiate(fireGreenPrefab, transform.position, Quaternion.identity);
 
-            // �Ѿ��� ���� ������ ȸ��
             bullet.transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
 
-            // �Ѿ˿� �ӵ��� ����
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             bulletRb.linearVelocity = bullet.transform.up * fireGreenSpeed;
 
